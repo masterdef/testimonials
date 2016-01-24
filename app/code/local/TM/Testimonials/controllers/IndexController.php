@@ -58,11 +58,15 @@ class TM_Testimonials_IndexController extends Mage_Core_Controller_Front_Action
         public function postAction()
         {
             $this->_initLayoutMessages('customer/session');
+
             // check if data sent
-            if ($data = $this->getRequest()->getPost()) {
+            if ($data = $this->getRequest()->getPost()) 
+            {
                 $model = Mage::getModel('tm_testimonials/data');
 
                 $model->setStoreId(Mage::app()->getStore()->getStoreId());
+          
+
                 $model->setName($data['name']);
                 $model->setEmail($data['email']);
                 $model->setMessage($data['message']);
@@ -70,6 +74,10 @@ class TM_Testimonials_IndexController extends Mage_Core_Controller_Front_Action
                 $model->setWebsite(isset($data['website']) ? $data['website'] : '');
                 $model->setTwitter(isset($data['twitter']) ? $data['twitter'] : '');
                 $model->setFacebook(isset($data['facebook']) ? $data['facebook'] : '');
+
+                $model->setCustomerId(Mage::getSingleton('customer/session')->getCustomer()->getId());
+                //var_dump(Mage::getSingleton('customer/session')->getCustomer()->getId());exit;
+
                 if (isset($data['rating'])) $model->setRating($data['rating']);
                 if (Mage::helper('testimonials')->isAutoApprove())
                     $model->setStatus(TM_Testimonials_Model_Data::STATUS_ENABLED);

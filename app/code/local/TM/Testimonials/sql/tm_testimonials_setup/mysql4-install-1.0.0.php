@@ -15,6 +15,9 @@ if ($installer->getConnection()->isTableExists($installer->getTable('tm_testimon
             'nullable'  => false,
             'primary'   => true,
         ), 'Testimonial id')
+        ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+            'default' => 1
+        ), 'Customer ID')
         ->addColumn('status', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
             'default' => 1
         ), 'Testimonial status')
